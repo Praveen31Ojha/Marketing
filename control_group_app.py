@@ -4,11 +4,11 @@ import base64
 import pandas as pd
 
 # Initialize Firebase at the app startup
-try:
-    db = initialize_firebase()
-except Exception as e:
-    st.warning(f"Firebase initialization failed: {e}")
-    db = None
+# try:
+#     db = initialize_firebase()
+# except Exception as e:
+#     st.warning(f"Firebase initialization failed: {e}")
+#     db = None
 
 # Questions for Survey - Reduced to 3 pages
 questions = {
@@ -77,17 +77,17 @@ suppliers_df = pd.DataFrame(suppliers)
 suppliers_df.index.name = "Feature"
 suppliers_df.reset_index(inplace=True)
 
-# Function to save responses to Firebase
-def save_to_firebase(answers):
-    try:
-        user_name = answers.get("First Name (*)", "Unknown")
-        collection_name = f"survey_{user_name.replace(' ', '_')}"
-        processed_answers = {q: (answers.get(q, "N/A") or "N/A") for q in answers}
-        processed_answers["is_control"] = False  # Mark as Bias Group
-        db.collection(collection_name).add(processed_answers)
-        st.success("Data successfully saved to Firebase!")
-    except Exception as e:
-        st.error(f"Error saving data: {e}")
+# # Function to save responses to Firebase
+# def save_to_firebase(answers):
+#     try:
+#         user_name = answers.get("First Name (*)", "Unknown")
+#         collection_name = f"survey_{user_name.replace(' ', '_')}"
+#         processed_answers = {q: (answers.get(q, "N/A") or "N/A") for q in answers}
+#         processed_answers["is_control"] = False  # Mark as Bias Group
+#         db.collection(collection_name).add(processed_answers)
+#         st.success("Data successfully saved to Firebase!")
+#     except Exception as e:
+#         st.error(f"Error saving data: {e}")
 
 # Function to set a background image
 def set_background(image_path):
